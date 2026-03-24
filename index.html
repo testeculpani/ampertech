@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ampertech Celulares</title>
+
+<style>
+body{
+    margin:0;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    background:#f5f5f7;
+}
+
+/* HEADER */
+header{
+    background:#000;
+    color:#fff;
+    padding:15px;
+    text-align:center;
+    font-size:20px;
+    font-weight:600;
+}
+
+/* MENU */
+.menu{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    background:#111;
+    padding:10px;
+}
+
+.menu button{
+    background:none;
+    border:none;
+    color:#fff;
+    font-size:14px;
+    cursor:pointer;
+}
+
+/* BANNER */
+.banner{
+    background:linear-gradient(120deg,#000,#444);
+    color:#fff;
+    padding:40px 20px;
+    text-align:center;
+}
+
+.banner h1{
+    font-size:28px;
+}
+
+/* PRODUTOS */
+.container{
+    padding:20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#fff;
+    border-radius:15px;
+    padding:15px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.08);
+    text-align:center;
+}
+
+.card img{
+    width:100%;
+    height:180px;
+    object-fit:contain;
+}
+
+.preco{
+    font-size:18px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.botao{
+    background:#000;
+    color:#fff;
+    padding:10px;
+    border-radius:8px;
+    text-decoration:none;
+    display:inline-block;
+}
+
+/* CADASTRO */
+.form{
+    max-width:400px;
+    margin:auto;
+    background:#fff;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 10px 20px rgba(0,0,0,0.08);
+}
+
+.form input{
+    width:100%;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.form button{
+    width:100%;
+    padding:12px;
+    background:#000;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+/* ESCONDER SEÇÕES */
+.section{
+    display:none;
+}
+
+.active{
+    display:block;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>📱 AMPERTECH CELULARES</header>
+
+<div class="menu">
+    <button onclick="mostrar('loja')">Loja</button>
+    <button onclick="mostrar('cadastro')">Cadastro Cliente</button>
+</div>
+
+<!-- LOJA -->
+<div id="loja" class="section active">
+
+<div class="banner">
+    <h1>Lançamentos e Ofertas 🔥</h1>
+    <p>Os melhores iPhones e Smartphones da região</p>
+</div>
+
+<div class="container">
+<div class="grid">
+
+<!-- PRODUTO -->
+<div class="card">
+<img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max">
+<h3>iPhone 15 Pro Max</h3>
+<p>256GB • Novo Lacrado</p>
+<div class="preco">R$ 6.990</div>
+<a class="botao" href="#">Comprar</a>
+</div>
+
+<div class="card">
+<img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro">
+<h3>iPhone 14 Pro</h3>
+<p>128GB • Original</p>
+<div class="preco">R$ 3.490</div>
+<a class="botao" href="#">Comprar</a>
+</div>
+
+<div class="card">
+<img src="https://i.imgur.com/8Km9tLL.png">
+<h3>Redmi Pad</h3>
+<p>256GB • 8GB RAM</p>
+<div class="preco">R$ 1.620</div>
+<a class="botao" href="#">Comprar</a>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<!-- CADASTRO -->
+<div id="cadastro" class="section">
+
+<div class="container">
+
+<div class="form">
+<h2>Cadastro de Cliente</h2>
+
+<input type="text" id="nome" placeholder="Nome">
+<input type="text" id="telefone" placeholder="Telefone">
+<input type="email" id="email" placeholder="Email">
+
+<button onclick="salvar()">Cadastrar</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function mostrar(secao){
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    document.getElementById(secao).classList.add('active');
+}
+
+function salvar(){
+    let nome = document.getElementById('nome').value;
+    let telefone = document.getElementById('telefone').value;
+    let email = document.getElementById('email').value;
+
+    if(!nome || !telefone){
+        alert("Preencha os campos obrigatórios");
+        return;
+    }
+
+    let clientes = JSON.parse(localStorage.getItem('clientes') || '[]');
+
+    clientes.push({
+        nome,
+        telefone,
+        email,
+        data: new Date().toLocaleDateString()
+    });
+
+    localStorage.setItem('clientes', JSON.stringify(clientes));
+
+    alert("Cliente cadastrado com sucesso!");
+
+    document.getElementById('nome').value="";
+    document.getElementById('telefone').value="";
+    document.getElementById('email').value="";
+}
+
+</script>
+
+</body>
+</html>
