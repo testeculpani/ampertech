@@ -8,10 +8,14 @@
   <title>Estoque Mobile</title>
   <style>
 :root{--ink:#17231e;--muted:#6c7771;--line:#e5e9e7;--bg:#f4f6f4;--panel:#fff;--green:#176b4a;--green-dark:#123d2e;--green-soft:#e8f4ee;--amber:#b86e12;--red:#bb3b3b;--blue:#2c61a8;--shadow:0 10px 30px rgba(21,45,35,.07)}
+.button-group{flex-wrap:wrap}.bulk-dialog{width:min(1050px,calc(100% - 28px))}.bulk-help{margin:-10px 0 20px;color:var(--muted);font-size:11px}.bulk-common-fields{margin-bottom:20px}.bulk-entry-head,.bulk-entry-row{display:grid;grid-template-columns:minmax(210px,1.5fr) 110px 150px minmax(190px,1fr) 36px;gap:10px;align-items:end}.bulk-entry-head{padding:0 2px 7px;color:#6e7a74;font-size:9px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}.bulk-entry-rows{display:grid;gap:10px}.bulk-entry-row{padding:12px;border:1px solid #e1e7e3;border-radius:12px;background:#f9fbfa}.bulk-entry-row label{display:flex;min-width:0;flex-direction:column;gap:6px;color:#3f4a44;font-size:9px;font-weight:750}.bulk-entry-row label span{display:none}.bulk-entry-row input,.bulk-entry-row select{width:100%;min-width:0;height:42px;border:1px solid #d8dfdb;border-radius:9px;padding:0 10px;background:#fff;color:var(--ink)}.bulk-remove{width:36px;height:42px;border:0;border-radius:9px;background:#faeaea;color:var(--red);font-size:20px}.bulk-remove:hover{background:#f4d7d7}.bulk-add-button{margin-top:12px}
+@media(max-width:760px){.bulk-dialog form{padding:18px}.bulk-entry-head{display:none}.bulk-entry-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 36px;align-items:end}.bulk-entry-row label span{display:block}.bulk-product,.bulk-description{grid-column:1/3}.bulk-remove{grid-column:3;grid-row:1;height:42px}.bulk-add-button{width:100%}}
+@media(max-width:460px){.bulk-entry-row{grid-template-columns:1fr 36px}.bulk-product,.bulk-description{grid-column:1/-1}.bulk-entry-row>label:not(.bulk-product):not(.bulk-description){grid-column:1}.bulk-remove{grid-column:2;grid-row:1}}
 *{box-sizing:border-box}html{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}body{margin:0;min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid rgba(23,107,74,.2);outline-offset:2px}.sidebar{position:fixed;inset:0 auto 0 0;width:240px;background:#13231d;color:#fff;padding:28px 18px;z-index:20;display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:12px;padding:0 10px 28px;border-bottom:1px solid rgba(255,255,255,.1)}.brand-mark{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:#e0a84a;color:#1b2e26;font-family:Georgia,serif;font-size:23px;font-weight:900}.brand strong,.brand small{display:block}.brand strong{font-size:16px}.brand small{margin-top:2px;color:#93a59d;font-size:10px;letter-spacing:.04em}.sidebar nav{display:grid;gap:7px;margin-top:26px}.nav-item{display:flex;align-items:center;gap:12px;width:100%;height:45px;padding:0 13px;border:0;border-radius:10px;background:transparent;color:#aebbb5;text-align:left;font-size:13px;font-weight:600}.nav-item span{width:22px;text-align:center;font-size:18px}.nav-item:hover,.nav-item.active{background:#203c31;color:#fff}.nav-item.active{box-shadow:inset 3px 0 #e0a84a}.sidebar-note{display:flex;align-items:center;gap:9px;margin-top:auto;padding:13px;border-radius:11px;background:rgba(255,255,255,.06)}.sidebar-note>span{color:#66d4a7;font-size:10px}.sidebar-note strong,.sidebar-note small{display:block}.sidebar-note strong{font-size:10px}.sidebar-note small{margin-top:3px;color:#8fa198;font-size:9px}main{margin-left:240px;min-height:100vh}.topbar{height:82px;padding:0 34px;display:flex;align-items:center;gap:20px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}.topbar-title{margin-right:auto}.topbar-title small,.eyebrow,.panel-heading small,.dialog-heading small,.totals-panel small{display:block;color:var(--green);font-size:9px;font-weight:800;letter-spacing:.14em}.topbar-title h1{margin:4px 0 0;font-family:Georgia,serif;font-size:22px}.top-actions{display:flex;align-items:center;gap:10px}.menu-button{display:none;border:0;background:transparent;font-size:23px}.search{height:41px;display:flex;align-items:center;gap:8px;padding:0 12px;border:1px solid #dce2df;border-radius:10px;background:#fff}.search:focus-within{border-color:#69a28a;box-shadow:0 0 0 3px rgba(23,107,74,.08)}.search span{color:#839088;font-size:18px}.search input{width:190px;border:0;outline:0;background:transparent;color:var(--ink);font-size:12px}.button{min-height:41px;border:1px solid transparent;border-radius:10px;padding:0 16px;font-size:12px;font-weight:750;white-space:nowrap}.button.primary{background:var(--green);color:#fff;box-shadow:0 5px 13px rgba(23,107,74,.15)}.button.primary:hover{background:#11583d}.button.secondary{border-color:#cfd8d3;background:#fff;color:var(--ink)}.button.secondary:hover,.button.ghost:hover{background:#f1f5f2}.button.light{background:#fff;color:#193e30}.button.ghost{border-color:transparent;background:transparent;color:var(--muted)}.button.danger{background:var(--red);color:#fff}.button-group{display:flex;gap:9px}.page{display:none;max-width:1480px;margin:0 auto;padding:30px 34px 55px}.page.active{display:block}.welcome{min-height:156px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:29px 34px;border-radius:18px;color:#fff;background:linear-gradient(115deg,#173b2d,#28684f);box-shadow:var(--shadow);position:relative;overflow:hidden}.welcome:after{content:"";position:absolute;width:260px;height:260px;border:1px solid rgba(255,255,255,.08);border-radius:50%;right:80px;top:-155px;box-shadow:0 0 0 38px rgba(255,255,255,.025),0 0 0 78px rgba(255,255,255,.02)}.welcome>*{position:relative;z-index:1}.welcome p{margin:0 0 7px;color:#b4d8c8;font-size:9px;font-weight:800;letter-spacing:.16em}.welcome h2{margin:0 0 8px;font-family:Georgia,serif;font-size:31px}.welcome span{color:#c0d0c9;font-size:11px}.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:20px 0}.stat-card{min-height:130px;display:flex;align-items:flex-start;gap:15px;padding:22px;background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:0 4px 14px rgba(21,45,35,.035)}.stat-icon{flex:none;width:39px;height:39px;display:grid;place-items:center;border-radius:11px;font-size:13px;font-weight:900}.stat-icon.green{background:#e5f3ec;color:var(--green)}.stat-icon.amber{background:#fff1dc;color:var(--amber)}.stat-icon.blue{background:#e8f0fb;color:var(--blue);font-size:10px}.stat-icon.violet{background:#f1eafb;color:#7252a5}.stat-card small,.stat-card strong,.stat-card em{display:block}.stat-card small{color:var(--muted);font-size:10px}.stat-card strong{margin:7px 0 4px;font-family:Georgia,serif;font-size:25px}.stat-card em{color:#8a948f;font-size:9px;font-style:normal}.dashboard-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:18px}.panel{background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:0 5px 20px rgba(21,45,35,.04)}.dashboard-grid>.panel{padding:22px}.panel-heading,.section-actions{display:flex;align-items:center;justify-content:space-between;gap:20px}.panel-heading{padding-bottom:17px;border-bottom:1px solid #edf0ee}.panel-heading h3{margin:5px 0 0;font-family:Georgia,serif;font-size:17px}.text-button{border:0;background:transparent;color:var(--green);font-size:10px;font-weight:750}.counter{display:grid;place-items:center;min-width:25px;height:25px;border-radius:20px;background:#fff0df;color:#a75e08;font-size:10px;font-weight:800}.movement-list,.low-list{display:grid}.movement-row,.low-row{display:grid;align-items:center;gap:12px;border-bottom:1px solid #edf0ee}.movement-row:last-child,.low-row:last-child{border:0}.movement-row{grid-template-columns:35px minmax(0,1fr) auto;padding:13px 0}.movement-badge{width:33px;height:33px;display:grid;place-items:center;border-radius:9px;font-size:16px;font-weight:900}.movement-badge.entrada{background:#e8f5ef;color:var(--green)}.movement-badge.saida{background:#faeaea;color:var(--red)}.movement-row strong,.movement-row small,.low-row strong,.low-row small{display:block}.movement-row strong,.low-row strong{font-size:11px}.movement-row small,.low-row small{margin-top:3px;color:#89928e;font-size:9px}.movement-value{text-align:right}.movement-value b{display:block;font-size:11px}.movement-value time{color:#9aa29e;font-size:8px}.low-row{grid-template-columns:minmax(0,1fr) auto;padding:14px 0}.stock-bar{height:4px;margin-top:7px;border-radius:5px;background:#edf0ee;overflow:hidden}.stock-bar i{display:block;height:100%;border-radius:5px;background:#d18a2d}.low-row b{color:#a65f0b;font-size:11px}.empty-inline{padding:30px 10px;text-align:center;color:#8a948f;font-size:11px}.section-actions{margin-bottom:22px}.section-actions .eyebrow{margin:0 0 5px}.section-actions h2{margin:0 0 5px;font-family:Georgia,serif;font-size:28px}.section-actions>div>span{color:var(--muted);font-size:11px}.table-panel{overflow:hidden}.table-toolbar{display:flex;gap:10px;padding:16px 18px;border-bottom:1px solid var(--line)}.search.wide{flex:1}.search.wide input{width:100%}.table-toolbar select{min-width:190px;border:1px solid #dce2df;border-radius:10px;padding:0 12px;background:#fff;color:#49534e;font-size:11px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse}th{height:42px;padding:0 15px;background:#f7f9f7;color:#7d8882;font-size:9px;letter-spacing:.06em;text-align:left;text-transform:uppercase;white-space:nowrap}td{padding:13px 15px;border-top:1px solid #edf0ee;font-size:11px;vertical-align:middle}td strong,td small{display:block}td small{margin-top:3px;color:#8a948f;font-size:9px}.stock-pill,.type-pill{display:inline-flex;align-items:center;border-radius:20px;padding:5px 8px;font-size:9px;font-weight:750}.stock-pill.ok,.type-pill.entrada{background:#e8f5ef;color:var(--green)}.stock-pill.low{background:#fff0df;color:#a65f0b}.stock-pill.zero,.type-pill.saida{background:#faeaea;color:var(--red)}.row-actions{display:flex;justify-content:flex-end;gap:3px}.row-actions button{width:30px;height:30px;border:0;border-radius:8px;background:transparent;color:#69736e}.row-actions button:hover{background:#edf2ef;color:var(--green)}.empty-state{padding:65px 20px;text-align:center}.empty-state>span{font-size:34px;color:#aeb8b3}.empty-state h3{margin:10px 0 4px;font-family:Georgia,serif}.empty-state p{margin:0;color:var(--muted);font-size:11px}.product-cards,.movement-cards{display:none}.report-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.report-card{padding:25px}.report-card.accent{background:#eef7f2}.report-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:11px;background:#eaf1ed;color:var(--green);font-size:20px}.report-card h3{margin:18px 0 7px;font-family:Georgia,serif}.report-card p{min-height:34px;margin:0 0 18px;color:var(--muted);font-size:11px;line-height:1.55}.file-button{display:inline-flex;align-items:center}.file-button input{display:none}.totals-panel{display:grid;grid-template-columns:repeat(3,1fr);margin-top:16px;padding:24px}.totals-panel>div{padding:3px 24px;border-right:1px solid var(--line)}.totals-panel>div:last-child{border:0}.totals-panel strong,.totals-panel span{display:block}.totals-panel strong{margin:7px 0 4px;font-family:Georgia,serif;font-size:24px}.totals-panel span{color:var(--muted);font-size:9px}.overlay{display:none;position:fixed;inset:0;background:rgba(10,25,19,.5);z-index:15}dialog{width:min(650px,calc(100% - 28px));padding:0;border:0;border-radius:17px;box-shadow:0 22px 70px rgba(10,30,20,.28);color:var(--ink)}dialog::backdrop{background:rgba(10,25,19,.6);backdrop-filter:blur(2px)}dialog form{padding:26px}.dialog-heading{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:23px;padding-bottom:17px;border-bottom:1px solid var(--line)}.dialog-heading h2{margin:5px 0 0;font-family:Georgia,serif;font-size:24px}.icon-button{width:34px;height:34px;border:0;border-radius:9px;background:#f1f4f2;color:#66716b;font-size:21px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.form-grid label{display:flex;flex-direction:column;gap:7px;color:#3f4a44;font-size:10px;font-weight:750}.form-grid input,.form-grid select,.form-grid textarea{width:100%;min-height:42px;border:1px solid #d8dfdb;border-radius:9px;padding:0 11px;background:#fff;color:var(--ink)}.form-grid textarea{min-height:72px;padding-top:10px;resize:vertical}.span-2{grid-column:1/-1}.dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:23px;padding-top:18px;border-top:1px solid var(--line)}.movement-tabs{display:grid;grid-template-columns:1fr 1fr;padding:3px;margin-bottom:18px;border-radius:10px;background:#edf1ef}.movement-tabs button{height:36px;border:0;border-radius:8px;background:transparent;color:#69736e;font-size:11px;font-weight:700}.movement-tabs button.active{background:#fff;color:var(--green);box-shadow:0 2px 8px rgba(20,45,35,.09)}.stock-preview{margin-top:15px;padding:12px 14px;border-radius:9px;background:#f2f6f3;color:#526059;font-size:10px}.stock-preview strong{color:var(--ink)}.confirm-dialog{width:min(390px,calc(100% - 28px));text-align:center}.confirm-dialog form{padding:32px}.danger-icon{width:48px;height:48px;display:grid;place-items:center;margin:0 auto 13px;border-radius:50%;background:#fae8e8;color:var(--red);font-weight:900}.confirm-dialog h2{margin:0;font-family:Georgia,serif}.confirm-dialog p{color:var(--muted);font-size:11px;line-height:1.55}.confirm-dialog .dialog-actions{justify-content:center}.toast{position:fixed;right:25px;bottom:25px;z-index:100;max-width:360px;padding:13px 17px;border-radius:10px;background:#183d2f;color:#fff;box-shadow:0 12px 35px rgba(10,30,20,.25);font-size:11px;font-weight:700;opacity:0;transform:translateY(12px);pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:none}.toast.error{background:#a93636}
 @media(max-width:1100px){.stats-grid{grid-template-columns:repeat(2,1fr)}.top-actions .search{display:none}.dashboard-grid{grid-template-columns:1fr}.totals-panel{grid-template-columns:1fr}.totals-panel>div{border-right:0;border-bottom:1px solid var(--line);padding:16px 4px}.totals-panel>div:last-child{border:0}}
 @media(max-width:760px){.sidebar{transform:translateX(-100%);transition:.2s}.sidebar.open{transform:none}.overlay.show{display:block}.sidebar.open~main{}.main{margin-left:0}main{margin-left:0}.topbar{height:70px;padding:0 16px}.menu-button{display:block}.topbar-title h1{font-size:18px}.top-actions .button{font-size:0;width:40px;padding:0}.top-actions .button::first-letter{font-size:19px}.page{padding:20px 15px 40px}.welcome{min-height:170px;align-items:flex-start;flex-direction:column;padding:25px}.welcome h2{font-size:26px}.stats-grid{gap:10px}.stat-card{min-height:116px;padding:16px;gap:10px}.stat-card strong{font-size:20px}.stat-card em{display:none}.section-actions{align-items:flex-start;flex-direction:column}.section-actions>.button,.section-actions>.button-group{width:100%}.button-group .button{flex:1}.table-wrap{display:none}.product-cards,.movement-cards{display:grid;gap:10px;padding:13px}.mobile-card{padding:15px;border:1px solid var(--line);border-radius:12px}.mobile-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.mobile-card h3{margin:0;font-size:13px}.mobile-card small{color:var(--muted);font-size:9px}.mobile-card-info{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}.mobile-card-info span{font-size:9px;color:var(--muted)}.mobile-card-info b{display:block;margin-top:3px;color:var(--ink);font-size:11px}.report-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.span-2{grid-column:auto}dialog form{padding:20px}.dialog-actions .button{flex:1}}
 @media(max-width:460px){.stats-grid{grid-template-columns:1fr}.welcome .button{width:100%}.table-toolbar{flex-direction:column}.table-toolbar select{height:41px;width:100%}.movement-row{grid-template-columns:34px minmax(0,1fr)}.movement-value{grid-column:2;text-align:left}.topbar-title small{display:none}}
+
   </style>
 </head>
 <body>
@@ -91,7 +95,7 @@
     <section class="page" id="movementsPage">
       <div class="section-actions">
         <div><p class="eyebrow">OPERAÇÃO</p><h2>Movimentações</h2><span>Registre entradas e saídas e mantenha o saldo correto.</span></div>
-        <div class="button-group"><button class="button secondary" data-open-movement="saida">− Registrar saída</button><button class="button primary" data-open-movement="entrada">＋ Registrar entrada</button></div>
+        <div class="button-group"><button class="button secondary" id="openBulkEntry">☷ Entrada em massa</button><button class="button secondary" data-open-movement="saida">− Registrar saída</button><button class="button primary" data-open-movement="entrada">＋ Registrar entrada</button></div>
       </div>
       <article class="panel table-panel">
         <div class="table-toolbar"><label class="search wide"><span>⌕</span><input id="movementSearch" type="search" placeholder="Buscar produto ou observação..."></label><select id="movementFilter" aria-label="Filtrar movimentação"><option value="">Todas</option><option value="entrada">Entradas</option><option value="saida">Saídas</option></select></div>
@@ -150,6 +154,21 @@
       </div>
       <div id="stockPreview" class="stock-preview"></div>
       <div class="dialog-actions"><button class="button ghost" type="button" data-close-dialog="movementDialog">Cancelar</button><button class="button primary" type="submit" value="default">Confirmar movimentação</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="bulk-dialog" id="bulkEntryDialog">
+    <form method="dialog" id="bulkEntryForm">
+      <div class="dialog-heading"><div><small>ENTRADA EM MASSA</small><h2>Adicionar vários aparelhos</h2></div><button class="icon-button" type="button" data-close-dialog="bulkEntryDialog" aria-label="Fechar">×</button></div>
+      <p class="bulk-help">Inclua quantas linhas precisar. O custo informado é sempre por item.</p>
+      <div class="form-grid bulk-common-fields">
+        <label>Responsável<input id="bulkResponsible" maxlength="50" placeholder="Seu nome"></label>
+        <label>Documento / referência<input id="bulkReference" maxlength="40" placeholder="NF, pedido, fornecedor..."></label>
+      </div>
+      <div class="bulk-entry-head" aria-hidden="true"><span>Aparelho / produto</span><span>Quantidade</span><span>Custo por item</span><span>Descrição</span><span></span></div>
+      <div class="bulk-entry-rows" id="bulkEntryRows"></div>
+      <button class="button secondary bulk-add-button" type="button" id="addBulkEntryRow">＋ Adicionar outra linha</button>
+      <div class="dialog-actions"><button class="button ghost" type="button" data-close-dialog="bulkEntryDialog">Cancelar</button><button class="button primary" type="submit" value="default">Registrar todas as entradas</button></div>
     </form>
   </dialog>
 
@@ -343,6 +362,30 @@ function openMovement(type = "entrada", productId = "") {
   $("#movementDialog").showModal();
 }
 
+function bulkProductOptions() {
+  return '<option value="">Selecione o aparelho</option>' + state.products.slice().sort((a, b) => a.name.localeCompare(b.name, "pt-BR")).map((product) => `<option value="${product.id}">${escapeHtml(product.name)} — ${escapeHtml(product.sku || "sem código")}</option>`).join("");
+}
+
+function addBulkEntryRow() {
+  const row = document.createElement("div");
+  row.className = "bulk-entry-row";
+  row.innerHTML = `<label class="bulk-product"><span>Aparelho / produto</span><select class="bulk-product-select" required>${bulkProductOptions()}</select></label><label><span>Quantidade</span><input class="bulk-quantity" type="number" min="0.01" step="0.01" value="1" required></label><label><span>Custo por item (R$)</span><input class="bulk-cost" type="number" min="0" step="0.01" required></label><label class="bulk-description"><span>Descrição</span><input class="bulk-description-input" maxlength="180" placeholder="Ex.: cor, memória, fornecedor"></label><button class="bulk-remove" type="button" data-remove-bulk-row aria-label="Remover linha" title="Remover linha">×</button>`;
+  $("#bulkEntryRows").append(row);
+  row.querySelector(".bulk-product-select").addEventListener("change", (event) => {
+    const product = productById(event.target.value);
+    if (product) row.querySelector(".bulk-cost").value = Number(product.cost || 0).toFixed(2);
+  });
+}
+
+function openBulkEntry() {
+  if (!state.products.length) return showToast("Cadastre um produto antes de fazer uma entrada em massa.", "error");
+  $("#bulkEntryForm").reset();
+  $("#bulkEntryRows").innerHTML = "";
+  addBulkEntryRow();
+  addBulkEntryRow();
+  $("#bulkEntryDialog").showModal();
+}
+
 function updateStockPreview() {
   const product = productById($("#movementProduct").value);
   const quantity = Number($("#movementQuantity").value) || 0;
@@ -391,6 +434,31 @@ function handleMovementSubmit(event) {
   showToast(`${type === "entrada" ? "Entrada" : "Saída"} registrada com sucesso.`);
 }
 
+function handleBulkEntrySubmit(event) {
+  event.preventDefault();
+  const rows = $$("#bulkEntryRows .bulk-entry-row");
+  const entries = rows.map((row) => ({
+    product: productById(row.querySelector(".bulk-product-select").value),
+    quantity: Number(row.querySelector(".bulk-quantity").value),
+    unitCost: Number(row.querySelector(".bulk-cost").value),
+    description: row.querySelector(".bulk-description-input").value.trim()
+  }));
+  if (!entries.length || entries.some((entry) => !entry.product || entry.quantity <= 0 || !Number.isFinite(entry.unitCost) || entry.unitCost < 0)) return showToast("Preencha aparelho, quantidade e custo em todas as linhas.", "error");
+
+  const responsible = $("#bulkResponsible").value.trim();
+  const reference = $("#bulkReference").value.trim() || "Entrada em massa";
+  const createdAt = new Date().toISOString();
+  entries.forEach(({ product, quantity, unitCost, description }) => {
+    const totalOldCost = product.quantity * product.cost;
+    product.quantity += quantity;
+    product.cost = product.quantity ? (totalOldCost + quantity * unitCost) / product.quantity : unitCost;
+    state.movements.push({ id: crypto.randomUUID(), productId: product.id, productName: product.name, type: "entrada", quantity, balanceAfter: product.quantity, unitCost, responsible, reference, note: description, createdAt });
+  });
+  $("#bulkEntryDialog").close();
+  save();
+  showToast(`${number.format(entries.length)} ${entries.length === 1 ? "entrada registrada" : "entradas registradas"} com sucesso.`);
+}
+
 function csvCell(value) { return `"${String(value ?? "").replaceAll('"', '""')}"`; }
 function download(filename, content, type) {
   const url = URL.createObjectURL(new Blob([content], { type }));
@@ -419,6 +487,12 @@ document.addEventListener("click", (event) => {
   if (target.dataset.closeDialog) $("#" + target.dataset.closeDialog).close();
   if (target.hasAttribute("data-open-product") || target.id === "quickAdd") openProduct();
   if (target.dataset.openMovement) openMovement(target.dataset.openMovement);
+  if (target.id === "openBulkEntry") openBulkEntry();
+  if (target.hasAttribute("data-remove-bulk-row")) {
+    const rows = $$("#bulkEntryRows .bulk-entry-row");
+    if (rows.length > 1) target.closest(".bulk-entry-row").remove();
+    else showToast("Mantenha pelo menos uma linha para a entrada.", "error");
+  }
   if (target.dataset.editProduct) openProduct(productById(target.dataset.editProduct));
   if (target.dataset.moveProduct) openMovement("entrada", target.dataset.moveProduct);
   if (target.dataset.deleteProduct) { deleteId = target.dataset.deleteProduct; $("#confirmDialog").showModal(); }
@@ -429,6 +503,8 @@ $("#menuButton").addEventListener("click", () => { $("#sidebar").classList.add("
 $("#overlay").addEventListener("click", closeSidebar);
 $("#productForm").addEventListener("submit", handleProductSubmit);
 $("#movementForm").addEventListener("submit", handleMovementSubmit);
+$("#bulkEntryForm").addEventListener("submit", handleBulkEntrySubmit);
+$("#addBulkEntryRow").addEventListener("click", addBulkEntryRow);
 $("#productSearch").addEventListener("input", renderProducts);
 $("#categoryFilter").addEventListener("change", renderProducts);
 $("#movementSearch").addEventListener("input", renderMovements);
@@ -452,6 +528,7 @@ $("#importBackup").addEventListener("change", async (event) => {
 
 $("#todayLabel").textContent = new Intl.DateTimeFormat("pt-BR", { weekday: "long", day: "2-digit", month: "long", year: "numeric" }).format(new Date());
 renderAll();
+
   </script>
 </body>
 </html>
