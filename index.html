@@ -1,242 +1,157 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ampertech Celulares</title>
-
-<style>
-body{
-    margin:0;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    background:#f5f5f7;
-}
-
-/* HEADER */
-header{
-    background:#000;
-    color:#fff;
-    padding:15px;
-    text-align:center;
-    font-size:20px;
-    font-weight:600;
-}
-
-/* MENU */
-.menu{
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    background:#111;
-    padding:10px;
-}
-
-.menu button{
-    background:none;
-    border:none;
-    color:#fff;
-    font-size:14px;
-    cursor:pointer;
-}
-
-/* BANNER */
-.banner{
-    background:linear-gradient(120deg,#000,#444);
-    color:#fff;
-    padding:40px 20px;
-    text-align:center;
-}
-
-.banner h1{
-    font-size:28px;
-}
-
-/* PRODUTOS */
-.container{
-    padding:20px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-    gap:20px;
-}
-
-.card{
-    background:#fff;
-    border-radius:15px;
-    padding:15px;
-    box-shadow:0 10px 20px rgba(0,0,0,0.08);
-    text-align:center;
-}
-
-.card img{
-    width:100%;
-    height:180px;
-    object-fit:contain;
-}
-
-.preco{
-    font-size:18px;
-    font-weight:bold;
-    margin:10px 0;
-}
-
-.botao{
-    background:#000;
-    color:#fff;
-    padding:10px;
-    border-radius:8px;
-    text-decoration:none;
-    display:inline-block;
-}
-
-/* CADASTRO */
-.form{
-    max-width:400px;
-    margin:auto;
-    background:#fff;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 10px 20px rgba(0,0,0,0.08);
-}
-
-.form input{
-    width:100%;
-    padding:12px;
-    margin-bottom:10px;
-    border-radius:8px;
-    border:1px solid #ccc;
-}
-
-.form button{
-    width:100%;
-    padding:12px;
-    background:#000;
-    color:#fff;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-}
-
-/* ESCONDER SEÇÕES */
-.section{
-    display:none;
-}
-
-.active{
-    display:block;
-}
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#13231d">
+  <meta name="description" content="Controle de estoque e custo unitário para loja de celulares.">
+  <title>Estoque Mobile</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <span class="brand-mark">E</span>
+      <div><strong>Estoque Mobile</strong><small>celulares e acessórios</small></div>
+    </div>
+    <nav aria-label="Navegação principal">
+      <button class="nav-item active" data-page="dashboard"><span>▦</span> Visão geral</button>
+      <button class="nav-item" data-page="products"><span>□</span> Produtos</button>
+      <button class="nav-item" data-page="movements"><span>⇄</span> Movimentações</button>
+      <button class="nav-item" data-page="reports"><span>↗</span> Relatórios</button>
+    </nav>
+    <div class="sidebar-note">
+      <span>●</span>
+      <div><strong>Dados protegidos</strong><small>Salvos neste navegador</small></div>
+    </div>
+  </aside>
 
-<header>📱 AMPERTECH CELULARES</header>
+  <main>
+    <header class="topbar">
+      <button class="menu-button" id="menuButton" aria-label="Abrir menu">☰</button>
+      <div class="topbar-title">
+        <small id="pageEyebrow">PAINEL</small>
+        <h1 id="pageTitle">Visão geral</h1>
+      </div>
+      <div class="top-actions">
+        <label class="search"><span>⌕</span><input id="globalSearch" type="search" placeholder="Buscar produto..." autocomplete="off"></label>
+        <button class="button primary" id="quickAdd">＋ Novo produto</button>
+      </div>
+    </header>
 
-<div class="menu">
-    <button onclick="mostrar('loja')">Loja</button>
-    <button onclick="mostrar('cadastro')">Cadastro Cliente</button>
-</div>
+    <section class="page active" id="dashboardPage">
+      <div class="welcome">
+        <div><p>RESUMO DA LOJA</p><h2>Celulares e peças, sob controle.</h2><span id="todayLabel"></span></div>
+        <button class="button light" data-open-movement="entrada">＋ Registrar entrada</button>
+      </div>
 
-<!-- LOJA -->
-<div id="loja" class="section active">
+      <div class="stats-grid">
+        <article class="stat-card"><span class="stat-icon green">▣</span><div><small>Produtos cadastrados</small><strong id="statProducts">0</strong><em>Celulares, peças e acessórios</em></div></article>
+        <article class="stat-card"><span class="stat-icon blue">#</span><div><small>Unidades em estoque</small><strong id="statUnitsCount">0</strong><em>Soma das quantidades disponíveis</em></div></article>
+        <article class="stat-card"><span class="stat-icon amber">!</span><div><small>Estoque baixo</small><strong id="statLow">0</strong><em>Itens no mínimo ou abaixo</em></div></article>
+        <article class="stat-card"><span class="stat-icon violet">⇄</span><div><small>Movimentações</small><strong id="statMovements">0</strong><em>Entradas e saídas registradas</em></div></article>
+      </div>
 
-<div class="banner">
-    <h1>Lançamentos e Ofertas 🔥</h1>
-    <p>Os melhores iPhones e Smartphones da região</p>
-</div>
+      <div class="dashboard-grid">
+        <article class="panel">
+          <div class="panel-heading"><div><small>ATIVIDADE</small><h3>Movimentações recentes</h3></div><button class="text-button" data-go="movements">Ver todas →</button></div>
+          <div id="recentMovements" class="movement-list"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-heading"><div><small>ATENÇÃO</small><h3>Reposição necessária</h3></div><span class="counter" id="lowCounter">0</span></div>
+          <div id="lowStockList" class="low-list"></div>
+        </article>
+      </div>
+    </section>
 
-<div class="container">
-<div class="grid">
+    <section class="page" id="productsPage">
+      <div class="section-actions">
+        <div><p class="eyebrow">CATÁLOGO</p><h2>Produtos</h2><span>Cadastre, pesquise e acompanhe seus itens.</span></div>
+        <button class="button primary" data-open-product>＋ Adicionar produto</button>
+      </div>
+      <article class="panel table-panel">
+        <div class="table-toolbar"><label class="search wide"><span>⌕</span><input id="productSearch" type="search" placeholder="Nome, código ou categoria..."></label><select id="categoryFilter" aria-label="Filtrar por categoria"><option value="">Todas as categorias</option></select></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Produto</th><th>Categoria</th><th>Estoque</th><th>Custo por item</th><th>Localização</th><th></th></tr></thead>
+            <tbody id="productTableBody"></tbody>
+          </table>
+        </div>
+        <div id="productCards" class="product-cards"></div>
+        <div id="productEmpty" class="empty-state" hidden><span>□</span><h3>Nenhum produto encontrado</h3><p>Cadastre um produto ou ajuste os filtros.</p></div>
+      </article>
+    </section>
 
-<!-- PRODUTO -->
-<div class="card">
-<img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max">
-<h3>iPhone 15 Pro Max</h3>
-<p>256GB • Novo Lacrado</p>
-<div class="preco">R$ 6.990</div>
-<a class="botao" href="#">Comprar</a>
-</div>
+    <section class="page" id="movementsPage">
+      <div class="section-actions">
+        <div><p class="eyebrow">OPERAÇÃO</p><h2>Movimentações</h2><span>Registre entradas e saídas e mantenha o saldo correto.</span></div>
+        <div class="button-group"><button class="button secondary" data-open-movement="saida">− Registrar saída</button><button class="button primary" data-open-movement="entrada">＋ Registrar entrada</button></div>
+      </div>
+      <article class="panel table-panel">
+        <div class="table-toolbar"><label class="search wide"><span>⌕</span><input id="movementSearch" type="search" placeholder="Buscar produto ou observação..."></label><select id="movementFilter" aria-label="Filtrar movimentação"><option value="">Todas</option><option value="entrada">Entradas</option><option value="saida">Saídas</option></select></div>
+        <div class="table-wrap">
+          <table><thead><tr><th>Data</th><th>Produto</th><th>Tipo</th><th>Quantidade</th><th>Saldo</th><th>Responsável</th><th>Observação</th></tr></thead><tbody id="movementTableBody"></tbody></table>
+        </div>
+        <div id="movementCards" class="movement-cards"></div>
+        <div id="movementEmpty" class="empty-state" hidden><span>⇄</span><h3>Nenhuma movimentação</h3><p>As entradas e saídas aparecerão aqui.</p></div>
+      </article>
+    </section>
 
-<div class="card">
-<img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro">
-<h3>iPhone 14 Pro</h3>
-<p>128GB • Original</p>
-<div class="preco">R$ 3.490</div>
-<a class="botao" href="#">Comprar</a>
-</div>
+    <section class="page" id="reportsPage">
+      <div class="section-actions"><div><p class="eyebrow">DADOS</p><h2>Relatórios e backup</h2><span>Exporte informações e mantenha uma cópia segura.</span></div></div>
+      <div class="report-grid">
+        <article class="panel report-card"><span class="report-icon">▤</span><h3>Relatório de produtos</h3><p>Baixe uma planilha CSV com saldo e custo unitário de cada item.</p><button class="button secondary" id="exportProducts">Baixar produtos.csv</button></article>
+        <article class="panel report-card"><span class="report-icon">⇄</span><h3>Histórico de movimentações</h3><p>Exporte todas as entradas e saídas registradas.</p><button class="button secondary" id="exportMovements">Baixar movimentacoes.csv</button></article>
+        <article class="panel report-card accent"><span class="report-icon">↓</span><h3>Backup completo</h3><p>Guarde produtos e histórico em um único arquivo JSON.</p><button class="button primary" id="exportBackup">Fazer backup</button></article>
+        <article class="panel report-card"><span class="report-icon">↑</span><h3>Restaurar backup</h3><p>Importe um backup salvo anteriormente neste sistema.</p><label class="button secondary file-button">Selecionar arquivo<input id="importBackup" type="file" accept="application/json,.json"></label></article>
+      </div>
+      <article class="panel totals-panel"><div><small>CELULARES</small><strong id="phoneCount">0</strong><span>Modelos e aparelhos cadastrados</span></div><div><small>PEÇAS E ACESSÓRIOS</small><strong id="accessoryCount">0</strong><span>Demais itens cadastrados</span></div><div><small>GIRO REGISTRADO</small><strong id="movementCount">0</strong><span>Total de movimentações no histórico</span></div></article>
+    </section>
+  </main>
 
-<div class="card">
-<img src="https://i.imgur.com/8Km9tLL.png">
-<h3>Redmi Pad</h3>
-<p>256GB • 8GB RAM</p>
-<div class="preco">R$ 1.620</div>
-<a class="botao" href="#">Comprar</a>
-</div>
+  <div class="overlay" id="overlay"></div>
 
-</div>
-</div>
+  <dialog id="productDialog">
+    <form method="dialog" id="productForm">
+      <div class="dialog-heading"><div><small>CADASTRO</small><h2 id="productDialogTitle">Novo produto</h2></div><button class="icon-button" type="button" data-close-dialog="productDialog" aria-label="Fechar">×</button></div>
+      <input type="hidden" id="productId">
+      <div class="form-grid">
+        <label class="span-2">Nome do produto<input id="productName" required maxlength="80" placeholder="Ex.: Camiseta básica"></label>
+        <label>Código / SKU<input id="productSku" maxlength="30" placeholder="Ex.: CAM-001"></label>
+        <label>Categoria<input id="productCategory" maxlength="40" placeholder="Ex.: Vestuário"></label>
+        <label>Estoque inicial<input id="productQuantity" type="number" min="0" step="0.01" value="0" required></label>
+        <label>Estoque mínimo<input id="productMinimum" type="number" min="0" step="0.01" value="0" required></label>
+        <label>Custo por item (R$)<input id="productCost" type="number" min="0" step="0.01" value="0" required></label>
+        <label>Unidade<select id="productUnit"><option value="un">Unidade (un)</option><option value="kg">Quilograma (kg)</option><option value="cx">Caixa (cx)</option><option value="pct">Pacote (pct)</option><option value="m">Metro (m)</option><option value="l">Litro (l)</option></select></label>
+        <label>Localização<input id="productLocation" maxlength="50" placeholder="Ex.: Prateleira A2"></label>
+      </div>
+      <div class="dialog-actions"><button class="button ghost" type="button" data-close-dialog="productDialog">Cancelar</button><button class="button primary" type="submit" value="default">Salvar produto</button></div>
+    </form>
+  </dialog>
 
-</div>
+  <dialog id="movementDialog">
+    <form method="dialog" id="movementForm">
+      <div class="dialog-heading"><div><small>MOVIMENTAÇÃO</small><h2 id="movementDialogTitle">Registrar entrada</h2></div><button class="icon-button" type="button" data-close-dialog="movementDialog" aria-label="Fechar">×</button></div>
+      <input type="hidden" id="movementType" value="entrada">
+      <div class="movement-tabs"><button type="button" data-type="entrada" class="active">Entrada</button><button type="button" data-type="saida">Saída</button></div>
+      <div class="form-grid">
+        <label class="span-2">Produto<select id="movementProduct" required></select></label>
+        <label>Quantidade<input id="movementQuantity" type="number" min="0.01" step="0.01" required></label>
+        <label id="movementCostLabel">Custo unitário da entrada (R$)<input id="movementCost" type="number" min="0" step="0.01" required></label>
+        <label>Responsável<input id="movementResponsible" maxlength="50" placeholder="Seu nome"></label>
+        <label>Documento / referência<input id="movementReference" maxlength="40" placeholder="NF, pedido, venda..."></label>
+        <label class="span-2">Observação<textarea id="movementNote" maxlength="180" placeholder="Informação opcional"></textarea></label>
+      </div>
+      <div id="stockPreview" class="stock-preview"></div>
+      <div class="dialog-actions"><button class="button ghost" type="button" data-close-dialog="movementDialog">Cancelar</button><button class="button primary" type="submit" value="default">Confirmar movimentação</button></div>
+    </form>
+  </dialog>
 
-<!-- CADASTRO -->
-<div id="cadastro" class="section">
+  <dialog class="confirm-dialog" id="confirmDialog">
+    <form method="dialog"><span class="danger-icon">!</span><h2>Excluir produto?</h2><p>O produto será removido. O histórico de movimentações será preservado.</p><div class="dialog-actions"><button class="button ghost" value="cancel">Cancelar</button><button class="button danger" id="confirmDelete" value="default">Excluir</button></div></form>
+  </dialog>
 
-<div class="container">
-
-<div class="form">
-<h2>Cadastro de Cliente</h2>
-
-<input type="text" id="nome" placeholder="Nome">
-<input type="text" id="telefone" placeholder="Telefone">
-<input type="email" id="email" placeholder="Email">
-
-<button onclick="salvar()">Cadastrar</button>
-
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-function mostrar(secao){
-    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-    document.getElementById(secao).classList.add('active');
-}
-
-function salvar(){
-    let nome = document.getElementById('nome').value;
-    let telefone = document.getElementById('telefone').value;
-    let email = document.getElementById('email').value;
-
-    if(!nome || !telefone){
-        alert("Preencha os campos obrigatórios");
-        return;
-    }
-
-    let clientes = JSON.parse(localStorage.getItem('clientes') || '[]');
-
-    clientes.push({
-        nome,
-        telefone,
-        email,
-        data: new Date().toLocaleDateString()
-    });
-
-    localStorage.setItem('clientes', JSON.stringify(clientes));
-
-    alert("Cliente cadastrado com sucesso!");
-
-    document.getElementById('nome').value="";
-    document.getElementById('telefone').value="";
-    document.getElementById('email').value="";
-}
-
-</script>
-
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
 </body>
 </html>
